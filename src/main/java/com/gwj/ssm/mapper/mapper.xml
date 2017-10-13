@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwj.ssm.dao.StuDao">
+    <!--<resultMap id="userMap" type="com.gwj.ssm.entity.User">-->
+        <!--<id property="id" column="id" />-->
+        <!--<result property="username" column="username"/>-->
+        <!--<result property="password" column="password"/>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="BaseResultMap" type="com.gwj.ssm.entity.User">-->
+        <!--<constructor>-->
+            <!--<idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />-->
+            <!--<arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</constructor>-->
+    <!--</resultMap>-->
+
+    <insert id="add" parameterType="Student">
+        insert into tb_stu(stuname,stuqq,stutype,stucreate,stuschool,stuid,stupromise,stusenior,studaily)
+        values(#{stuname},#{stuqq},#{stutype},#{stucreate},#{stuschool},#{stuid},#{stupromise},#{stusenior},#{studaily})
+    </insert>
+
+    <delete id="delete" parameterType="Student">
+        delete from tb_stu where id =#{id}
+    </delete>
+
+    <select id="get" parameterType="_int" resultType="Student">
+        select *from tb_stu where id=#{id}
+    </select>
+
+    <update id="update" parameterType="Student">
+        update tb_stu set stuname=#{stuname},stuqq=#{stuqq},stutype=#{stutype},stucreate=#{stucreate},stuschool=#{stuschool},stuid=#{stuid},stupromise=#{stupromise},stusenior=#{stusenior},studaily=#{studaily} where id=#{id}
+    </update>
+
+    <select id="list" resultType="Student">
+        select *from tb_stu order by id
+        <if test="start!=null and count!=null">
+            limit #{start},#{count}
+        </if>
+    </select>
+
+    <select id="total" resultType="int">
+        select count(*) from tb_stu
+    </select>
+
+    <select id="Login" resultType="com.gwj.ssm.entity.User">
+        select * from tb_user where username=#{username} and password=#{password}
+    </select>
+
+    <insert id="adduser" parameterType="User">
+        insert into tb_user(username,password)values(#{username},#{password})
+    </insert>
+</mapper>
